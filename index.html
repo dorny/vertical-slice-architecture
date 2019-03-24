@@ -25,10 +25,10 @@
           <h1>Vertical-Slice Architecture</h1>
         </section>
         <section>
-          <h3>Scope of this presentation</h3><img src="img/scope-1.svg">
+          <h3>Scope of this presentation</h3><img class="stretch" src="img/scope-1.svg">
         </section>
         <section>
-          <h3>Scope of this presentation</h3><img src="img/scope-2.svg">
+          <h3>Scope of this presentation</h3><img class="stretch" src="img/scope-2.svg">
         </section>
         <section>
           <h3>Why talk about architecture on this level?</h3>
@@ -66,7 +66,95 @@
           <p class="fragment">Common in practice due to business pressures, developer turnover and code entropy</p>
         </section>
         <section>
-          <h3>Choosing right architecture from beginning is very important</h3>
+          <h3>1. Choosing right architecture from beginning is very important</h3>
+        </section>
+        <section>
+          <h2>Common patterns</h2>
+        </section>
+        <section>
+          <h3>Basic architecture</h3>
+          <ul>
+            <li class="fragment">Also known as "Everything in a Controller"</li>
+            <li class="fragment">Often used as a starting point</li>
+            <li class="fragment">Popular among students / junior devs</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Basic architecture</h3><img class="stretch" src="img/basic-arch.svg">
+        </section>
+        <section>
+          <h3>Basic architecture</h3>
+          <pre><code data-trim data-noescape>﻿using BasicArchitecture.Data;
+using BasicArchitecture.Data.Entities;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Linq;
+
+namespace BasicArchitecture.Controllers
+{
+    [Route("api/[controller]")]
+    [ApiController]
+    public class UsersController : ControllerBase
+    {
+        private readonly DataContext _dataContext;
+
+        public UsersController(DataContext dataContext)
+        {
+            _dataContext = dataContext;
+        }
+
+        [HttpGet]
+        public ActionResult<IEnumerable<UserEntity>> Get()
+        {
+            return _dataContext.Users.ToList();
+        }
+    }
+}
+</code></pre>
+        </section>
+        <section>
+          <h3>Later you add</h3>
+          <ul>
+            <li class="fragment">Request validation</li>
+            <li class="fragment">Authorization rules</li>
+            <li class="fragment">Complex business logic</li>
+            <li class="fragment">Mapping between DB model and API model</li>
+            <li class="fragment">...other stuff</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Controller now have 1K+ lines of code</h3>
+          <p class="fragment">Unmaintainable big ball of mud</p>
+        </section>
+        <section>
+          <h3>This architecture doesn't scale with added code.</h3>
+        </section>
+        <section>
+          <h3>Types of scalability</h3>
+          <ul>
+            <li class="fragment">Usage Scalability
+              <ul>
+                <li>number of requests</li>
+              </ul>
+            </li>
+            <li class="fragment">Scalability over period
+              <ul>
+                <li>size of stored data</li>
+              </ul>
+            </li>
+            <li class="fragment">Code scalability
+              <ul>
+                <li>amount of code</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>2. Think about code scalability</h3>
+          <ul>
+            <li class="fragment">Single responsibility principle</li>
+            <li class="fragment">Open–closed principle</li>
+          </ul>
         </section>
       </div>
     </div>
