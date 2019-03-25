@@ -156,6 +156,108 @@ namespace BasicArchitecture.Controllers
             <li class="fragment">Open–closed principle</li>
           </ul>
         </section>
+        <section>
+          <h3>Domain-Driven Design</h3>
+        </section>
+        <section>
+          <h3>Building blocks</h3>
+          <ul>
+            <li class="fragment">Entity</li>
+            <li class="fragment">Value object</li>
+            <li class="fragment">Aggregate</li>
+            <li class="fragment">Domain Event</li>
+            <li class="fragment">Service</li>
+            <li class="fragment">Repository</li>
+            <li class="fragment">Factory</li>
+          </ul>
+        </section>
+        <section>
+          <h3>HTTP is a REQUEST / RESPONSE protocol</h3>
+          <ul>
+            <li class="fragment">Model instance doesn't exists between requests</li>
+            <li class="fragment">It's a temporary representation of state based on request and data in database</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Layers in Domain-Driven Design service</h3>
+          <ul>
+            <li class="fragment">API (REST/JSON)</li>
+            <li class="fragment">Domain (model)</li>
+            <li class="fragment">Data (store)</li>
+          </ul>
+        </section>
+        <section><img class="stretch" src="img/ddd-layers.png"></section>
+        <section>
+          <h3>It's good right?</h3>
+          <p class="fragment">...well, it has some drawbacks</p>
+        </section>
+        <section>
+          <h3>DDD pitfalls: Mapping</h3>
+          <ul>
+            <li class="fragment">Mapping from DB schema to domain entities</li>
+            <li class="fragment">Mapping from domain entities to API contract models</li>
+          </ul>
+        </section>
+        <section>
+          <h3>DDD pitfalls: Mapping</h3>
+          <p>Error prone, boilerplate code without business value</p>
+        </section>
+        <section>
+          <h3>DDD pitfalls: Repository</h3>
+          <ul>
+            <li class="fragment">Abstraction of abstraction (DbContext)</li>
+            <li class="fragment">Fat repository - aggregate of all data access of entity
+              <ul>
+                <li class="fragment">Methods used only once</li>
+                <li class="fragment">Reuse of method which doesn't fit use-case</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>DDD pitfalls: Performance</h3>
+          <ul>
+            <li class="fragment">Developers don't think about database</li>
+            <ul>
+              <li class="fragment">Query more data then needed</li>
+              <li class="fragment">Multiple queries with manual join</li>
+            </ul>
+          </ul>
+        </section>
+        <section>
+          <h3>DDD pitfalls: Anemic Domain Model</h3>
+          <ul>
+            <li>"Domain models" without behavior</li>
+            <li>Class with bunch of getters and setters</li>
+            <li>Anti-pattern</li>
+          </ul>
+        </section>
+        <section>
+          <h3>DDD pitfalls: Adding new feature</h3>
+          <ul>
+            <li class="fragment">Modify API layer</li>
+            <li class="fragment">Modify Domain layer</li>
+            <li class="fragment">Modify Data layer</li>
+            <li class="fragment">don't forget about mappers :)</li>
+          </ul>
+        </section>
+        <section>
+          <h3>DDD pitfalls: Adding new feature</h3><img class="stretch" src="img/feature-slice.svg">
+        </section>
+        <section>
+          <p>
+            Microsoft recommends that it be applied only to complex domains where the model
+            and the linguistic processes provide clear benefits in the communication of complex information,
+            and in the formulation of a common understanding of the domain.
+          </p>
+        </section>
+        <section>
+          <h3>tl;dr:</h3>
+          <p>Worth only for cases where business complexity is bigger issue than DDD abstractions.</p>
+        </section>
+        <section>
+          <h3>3. KISS - keep it simple, stupid</h3>
+        </section>
       </div>
     </div>
     <script src="lib/js/head.min.js"></script>

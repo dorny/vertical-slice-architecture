@@ -1,0 +1,92 @@
+section
+    h3 Domain-Driven Design
+
+section
+    h3 Building blocks
+    ul
+        li.fragment Entity
+        li.fragment Value object
+        li.fragment Aggregate
+        li.fragment Domain Event
+        li.fragment Service
+        li.fragment Repository
+        li.fragment Factory
+
+section
+    h3 HTTP is a REQUEST / RESPONSE protocol
+    ul
+        li.fragment Model instance doesn't exists between requests
+        li.fragment It's a temporary representation of state based on request and data in database
+
+section
+    h3 Layers in Domain-Driven Design service
+    ul
+        li.fragment API (REST/JSON)
+        li.fragment Domain (model)
+        li.fragment Data (store)
+
+section
+    img.stretch(src='img/ddd-layers.png')
+
+section
+    h3 It's good right?
+    p.fragment ...well, it has some drawbacks
+
+section
+    h3 DDD pitfalls: Mapping
+    ul
+        li.fragment Mapping from DB schema to domain entities
+        li.fragment Mapping from domain entities to API contract models
+
+section
+    h3 DDD pitfalls: Mapping
+    p Error prone, boilerplate code without business value
+
+section
+    h3 DDD pitfalls: Repository
+    ul
+        li.fragment Abstraction of abstraction (DbContext)
+        li.fragment Fat repository - aggregate of all data access of entity
+            ul
+                li.fragment Methods used only once
+                li.fragment Reuse of method which doesn't fit use-case
+
+section
+    h3 DDD pitfalls: Performance
+    ul
+        li.fragment Developers don't think about database
+        ul
+            li.fragment Query more data then needed
+            li.fragment Multiple queries with manual join
+
+section
+    h3 DDD pitfalls: Anemic Domain Model
+    ul
+        li "Domain models" without behavior
+        li Class with bunch of getters and setters
+        li Anti-pattern
+
+section
+    h3 DDD pitfalls: Adding new feature
+    ul
+        li.fragment Modify API layer
+        li.fragment Modify Domain layer
+        li.fragment Modify Data layer
+        li.fragment don't forget about mappers :)
+
+section
+    h3 DDD pitfalls: Adding new feature
+    img.stretch(src='img/feature-slice.svg')
+
+section
+    p
+        | Microsoft recommends that it be applied only to complex domains where the model
+        | and the linguistic processes provide clear benefits in the communication of complex information,
+        | and in the formulation of a common understanding of the domain.
+
+section
+    h3 tl;dr:
+    p Worth only for cases where business complexity is bigger issue than DDD abstractions.
+
+section
+    h3 3. KISS - keep it simple, stupid
