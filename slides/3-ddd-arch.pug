@@ -4,8 +4,8 @@ section
 section
     h3 Building blocks
     ul
-        li.fragment Entity
         li.fragment Value object
+        li.fragment Entity
         li.fragment Aggregate
         li.fragment Domain Event
         li.fragment Service
@@ -22,8 +22,9 @@ section
     h3 Layers in Domain-Driven Design service
     ul
         li.fragment API (REST/JSON)
-        li.fragment Domain (model)
-        li.fragment Data (store)
+        li.fragment Domain model
+        li.fragment Repository
+        li.fragment Database schema
 
 section
     img.stretch(src='img/ddd-layers.png')
@@ -71,12 +72,12 @@ section
     ul
         li.fragment Modify API layer
         li.fragment Modify Domain layer
-        li.fragment Modify Data layer
+        li.fragment Modify Repository layer
         li.fragment don't forget about mappers :)
 
 section
     h3 DDD pitfalls: Adding new feature
-    img.stretch(src='img/feature-slice.svg')
+    img.stretch(src='img/ddd-slice.svg')
 
 section
     p
@@ -85,7 +86,7 @@ section
         | and in the formulation of a common understanding of the domain.
 
 section
-    h3 tl;dr:
+    h3 tl;dr;
     p Worth only for cases where business complexity is bigger issue than DDD abstractions.
 
 section

@@ -63,7 +63,7 @@
         </section>
         <section>
           <h3>Big ball of mud</h3>
-          <p class="fragment">Common in practice due to business pressures, developer turnover and code entropy</p>
+          <p class="fragment">Common in practice due to business pressures, developer turnover and code entropy.</p>
         </section>
         <section>
           <h3>1. Choosing right architecture from beginning is very important</h3>
@@ -72,18 +72,17 @@
           <h2>Common patterns</h2>
         </section>
         <section>
-          <h3>Basic architecture</h3>
+          <h3>"Everything in a Controller"</h3>
           <ul>
-            <li class="fragment">Also known as "Everything in a Controller"</li>
             <li class="fragment">Often used as a starting point</li>
             <li class="fragment">Popular among students / junior devs</li>
           </ul>
         </section>
         <section>
-          <h3>Basic architecture</h3><img class="stretch" src="img/basic-arch.svg">
+          <h3>"Everything in a Controller"</h3><img class="stretch" src="img/basic-arch.svg">
         </section>
         <section>
-          <h3>Basic architecture</h3>
+          <h3>"Everything in a Controller"</h3>
           <pre><code data-trim data-noescape>﻿using BasicArchitecture.Data;
 using BasicArchitecture.Data.Entities;
 using Microsoft.AspNetCore.Mvc;
@@ -124,7 +123,7 @@ namespace BasicArchitecture.Controllers
         </section>
         <section>
           <h3>Controller now have 1K+ lines of code</h3>
-          <p class="fragment">Unmaintainable big ball of mud</p>
+          <p class="fragment">Unmaintainable big ball of mud.</p>
         </section>
         <section>
           <h3>This architecture doesn't scale with added code.</h3>
@@ -162,8 +161,8 @@ namespace BasicArchitecture.Controllers
         <section>
           <h3>Building blocks</h3>
           <ul>
-            <li class="fragment">Entity</li>
             <li class="fragment">Value object</li>
+            <li class="fragment">Entity</li>
             <li class="fragment">Aggregate</li>
             <li class="fragment">Domain Event</li>
             <li class="fragment">Service</li>
@@ -182,8 +181,9 @@ namespace BasicArchitecture.Controllers
           <h3>Layers in Domain-Driven Design service</h3>
           <ul>
             <li class="fragment">API (REST/JSON)</li>
-            <li class="fragment">Domain (model)</li>
-            <li class="fragment">Data (store)</li>
+            <li class="fragment">Domain model</li>
+            <li class="fragment">Repository</li>
+            <li class="fragment">Database schema</li>
           </ul>
         </section>
         <section><img class="stretch" src="img/ddd-layers.png"></section>
@@ -237,12 +237,12 @@ namespace BasicArchitecture.Controllers
           <ul>
             <li class="fragment">Modify API layer</li>
             <li class="fragment">Modify Domain layer</li>
-            <li class="fragment">Modify Data layer</li>
+            <li class="fragment">Modify Repository layer</li>
             <li class="fragment">don't forget about mappers :)</li>
           </ul>
         </section>
         <section>
-          <h3>DDD pitfalls: Adding new feature</h3><img class="stretch" src="img/feature-slice.svg">
+          <h3>DDD pitfalls: Adding new feature</h3><img class="stretch" src="img/ddd-slice.svg">
         </section>
         <section>
           <p>
@@ -252,11 +252,109 @@ namespace BasicArchitecture.Controllers
           </p>
         </section>
         <section>
-          <h3>tl;dr:</h3>
+          <h3>tl;dr;</h3>
           <p>Worth only for cases where business complexity is bigger issue than DDD abstractions.</p>
         </section>
         <section>
           <h3>3. KISS - keep it simple, stupid</h3>
+        </section>
+        <section>
+          <h2>Vertical (Feature) Slice</h2>
+        </section>
+        <section>
+          <h3>Layers</h3><img class="stretch" src="img/feature-slice-1.svg">
+        </section>
+        <section>
+          <h3>Vertical slices</h3><img class="stretch" src="img/feature-slice-2.svg">
+        </section>
+        <section>
+          <h3>Microservices</h3><img class="stretch" src="img/feature-slice-3.svg">
+        </section>
+        <section>
+          <h3>Layers</h3>
+          <ul>
+            <li class="fragment">Localizing technology aspects</li>
+            <li class="fragment">Direct dependency on lower layer</li>
+            <li class="fragment">Invisible semantic dependency on upper layer</li>
+            <li class="fragment">Business aspects spread across all layers</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Vertical slices</h3>
+          <ul>
+            <li class="fragment">Localizing business aspects</li>
+            <li class="fragment">Minimize coupling between slices</li>
+            <li class="fragment">Maximize coupling in a slice</li>
+            <li class="fragment">Single deployment unit</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Microservices</h3>
+          <ul>
+            <li class="fragment">Localizing business aspects</li>
+            <li class="fragment">Multiple deployment units</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Vertical slices</h3>
+          <p>
+            You take a normal "n-tier" architecture and remove the gates
+            and barriers across those layers, and couple along the axis of change
+          </p>
+        </section>
+        <section>
+          <h3>Scopes of feature slice</h3>
+          <ul>
+            <li class="fragment">Module</li>
+            <li class="fragment">Controller</li>
+            <li class="fragment">Route</li>
+          </ul>
+        </section>
+        <section>
+          <h3>4. Couple code along the axis of change.</h3>
+        </section>
+        <section>
+          <h2>CQRS</h2>
+        </section>
+        <section>
+          <h3>CQRS - vertical slice per Route</h3>
+          <ul>
+            <li class="fragment">Query
+              <ul>
+                <li>GET</li>
+              </ul>
+            </li>
+            <li class="fragment">Command
+              <ul>
+                <li>POST</li>
+                <li>PUT</li>
+                <li>DELETE</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Each command/query can decide for itself how to best fulfill the requirements</h3>
+          <ul>
+            <li class="fragment">Update entity using ORM</li>
+            <li class="fragment">Query projection</li>
+            <li class="fragment">Domain model (DDD)</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Transaction Script</h3>
+          <p class="fragment">Organizes business logic by procedures where each procedure handles a single request from the presentation</p>
+        </section>
+        <section>
+          <p>
+            The glory of Transaction Script is its simplicity.
+            Organizing logic this way is natural for applications with only a small amount of logic,
+            and it involves very little overhead either in performance or in understanding.
+          </p>
+          <p><b>Martin Flower</b></p>
+        </section>
+        <section>
+          <h3>5. Treat each request as a distinct use case</h3>
         </section>
       </div>
     </div>

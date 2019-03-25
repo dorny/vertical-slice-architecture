@@ -1,0 +1,34 @@
+section
+    h2 CQRS
+
+section
+    h3 CQRS - vertical slice per Route
+    ul
+        li.fragment Query
+            ul: li GET
+        li.fragment Command
+            ul
+                li POST
+                li PUT
+                li DELETE
+
+section
+    h3 Each command/query can decide for itself how to best fulfill the requirements
+    ul
+        li.fragment Update entity using ORM
+        li.fragment Query projection
+        li.fragment Domain model (DDD)
+
+section
+    h3 Transaction Script
+    p.fragment Organizes business logic by procedures where each procedure handles a single request from the presentation
+
+section
+    p
+        | The glory of Transaction Script is its simplicity.
+        | Organizing logic this way is natural for applications with only a small amount of logic,
+        | and it involves very little overhead either in performance or in understanding.
+    p: b Martin Flower
+
+section
+    h3 5. Treat each request as a distinct use case
