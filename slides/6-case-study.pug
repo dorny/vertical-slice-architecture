@@ -75,4 +75,22 @@ section
 section
     h3 Controller
     pre: code(data-trim data-noescape)
-        | TODO
+        include:highlight ../examples/src/FeatureSlice/Features/Users/UserController.cs
+
+section
+    h3 Query
+    pre: code(data-noescape)
+        include:highlight ../examples/src/FeatureSlice/Features/Users/Query/GetUsersQuery.cs
+
+section
+    h3 LinqKit
+    pre: code(data-noescape)
+        include:highlight ../examples/src/FeatureSlice/Core/Repository/UserModelEx.cs
+
+section
+    h3 Result of refactoring
+    ul
+        li.fragment Amount of code was significantly reduced
+        li.fragment Easier to navigate in a code base
+        li.fragment Extensions & modifications implemented much easier
+        li.fragment Reusable queries using LinqKit

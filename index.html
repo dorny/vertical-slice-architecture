@@ -83,29 +83,29 @@
         </section>
         <section>
           <h3>"Everything in a Controller"</h3>
-          <pre><code data-trim data-noescape>﻿using BasicArchitecture.Data;
-using BasicArchitecture.Data.Entities;
-using Microsoft.AspNetCore.Mvc;
-using System.Collections.Generic;
-using System.Linq;
+          <pre><code data-trim data-noescape>﻿<span class="hljs-keyword">using</span> BasicArchitecture.Data;
+<span class="hljs-keyword">using</span> BasicArchitecture.Data.Entities;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Mvc;
+<span class="hljs-keyword">using</span> System.Collections.Generic;
+<span class="hljs-keyword">using</span> System.Linq;
 
-namespace BasicArchitecture.Controllers
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">BasicArchitecture.Controllers</span>
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class UsersController : ControllerBase
+    [<span class="hljs-meta">Route(<span class="hljs-meta-string">"api/[controller]"</span>)</span>]
+    [<span class="hljs-meta">ApiController</span>]
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">UsersController</span> : <span class="hljs-title">ControllerBase</span>
     {
-        private readonly DataContext _dataContext;
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> DataContext _dataContext;
 
-        public UsersController(DataContext dataContext)
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">UsersController</span>(<span class="hljs-params">DataContext dataContext</span>)</span>
         {
             _dataContext = dataContext;
         }
 
-        [HttpGet]
-        public ActionResult<IEnumerable<UserEntity>> Get()
+        [<span class="hljs-meta">HttpGet</span>]
+        <span class="hljs-keyword">public</span> ActionResult&lt;IEnumerable&lt;UserEntity&gt;&gt; Get()
         {
-            return _dataContext.Users.ToList();
+            <span class="hljs-keyword">return</span> _dataContext.Users.ToList();
         }
     }
 }
@@ -450,7 +450,122 @@ namespace BasicArchitecture.Controllers
         </section>
         <section>
           <h3>Controller</h3>
-          <pre><code data-trim data-noescape>TODO</code></pre>
+          <pre><code data-trim data-noescape>﻿<span class="hljs-keyword">using</span> FeatureSlice.Core.Models;
+<span class="hljs-keyword">using</span> FeatureSlice.Features.Users.Query;
+<span class="hljs-keyword">using</span> MediatR;
+<span class="hljs-keyword">using</span> Microsoft.AspNetCore.Mvc;
+<span class="hljs-keyword">using</span> System;
+<span class="hljs-keyword">using</span> System.Collections.Generic;
+<span class="hljs-keyword">using</span> System.Linq;
+<span class="hljs-keyword">using</span> System.Threading.Tasks;
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">FeatureSlice.Features.Users</span>
+{
+    [<span class="hljs-meta">Route(<span class="hljs-meta-string">"api/users"</span>)</span>]
+    [<span class="hljs-meta">ApiController</span>]
+    <span class="hljs-keyword">public</span> <span class="hljs-keyword">class</span> <span class="hljs-title">UserController</span> : <span class="hljs-title">ControllerBase</span>
+    {
+        <span class="hljs-keyword">private</span> <span class="hljs-keyword">readonly</span> IMediator _mediator;
+
+        <span class="hljs-function"><span class="hljs-keyword">public</span> <span class="hljs-title">UserController</span>(<span class="hljs-params">IMediator mediator</span>)</span>
+        {
+            _mediator = mediator;
+        }
+
+        [<span class="hljs-meta">HttpGet</span>]
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;ActionResult&lt;IEnumerable&lt;UserModel&gt;&gt;&gt; GetAll()
+        {
+            <span class="hljs-keyword">var</span> query = <span class="hljs-keyword">new</span> GetUsersQuery();
+            <span class="hljs-keyword">var</span> result = <span class="hljs-keyword">await</span> _mediator.Send(query);
+            <span class="hljs-keyword">return</span> result;
+        }
+
+        [<span class="hljs-meta">HttpGet(<span class="hljs-meta-string">"{id}"</span>)</span>]
+        <span class="hljs-keyword">public</span> <span class="hljs-keyword">async</span> Task&lt;ActionResult&lt;UserModel&gt;&gt; Get(Guid id)
+        {
+            <span class="hljs-keyword">var</span> query = <span class="hljs-keyword">new</span> GetUsersQuery { Id = id };
+            <span class="hljs-keyword">var</span> result = (<span class="hljs-keyword">await</span> _mediator.Send(query)).FirstOrDefault();
+            <span class="hljs-keyword">return</span> result;
+        }
+    }
+}
+</code></pre>
+        </section>
+        <section>
+          <h3>Query</h3>
+          <pre><code data-noescape>﻿using FeatureSlice.Core.Models;
+using FeatureSlice.Core.Repository;
+using FeatureSlice.Data;
+using LinqKit;
+using MediatR;
+using Microsoft.EntityFrameworkCore;
+using<span class="hljs-built_in"> System;</span>
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+
+namespace FeatureSlice.Features.Users.Query
+{
+    public sealed class GetUsersQuery : IRequest&lt;List&lt;UserModel&gt;&gt;
+    {
+        public Guid? Id { get; set; }
+    }
+
+    internal sealed class GetlAllUsersQueryHandler : IRequestHandler&lt;GetUsersQuery, List&lt;UserModel&gt;&gt;
+    {
+        private readonly DataContext _dataContext;
+
+        public GetlAllUsersQueryHandler(DataContext dataContext)
+        {
+            _dataContext = dataContext;
+        }
+
+        public async Task&lt;List&lt;UserModel&gt;&gt; Handle(GetUsersQuery request, CancellationToken cancellationToken)
+        {
+            var<span class="hljs-built_in"> users </span>= _dataContext.Users.AsExpandable();
+
+            <span class="hljs-keyword">if</span> (request.Id.HasValue)
+            {
+               <span class="hljs-built_in"> users </span>= users.Where(u =&gt; u.Id == request.Id);
+            }
+
+            return await<span class="hljs-built_in"> users</span>
+                .Select(user =&gt; UserModelEx.ReadFrom.Invoke(user))
+                .ToListAsync(cancellationToken);
+        }
+    }
+}</code></pre>
+        </section>
+        <section>
+          <h3>LinqKit</h3>
+          <pre><code data-noescape>﻿using FeatureSlice.Core.Models;
+using FeatureSlice.Data.Entities;
+using<span class="hljs-built_in"> System;</span>
+using System.Linq.Expressions;
+
+namespace FeatureSlice.Core.Repository
+{
+    public static class UserModelEx
+    {
+        public static readonly Expression&lt;Func&lt;UserEntity, UserModel&gt;&gt; ReadFrom =
+           <span class="hljs-built_in"> user </span>=&gt; new UserModel
+            {
+                Id = user.Id,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+            };
+    }
+}</code></pre>
+        </section>
+        <section>
+          <h3>Result of refactoring</h3>
+          <ul>
+            <li class="fragment">Amount of code was significantly reduced</li>
+            <li class="fragment">Easier to navigate in a code base</li>
+            <li class="fragment">Extensions & modifications implemented much easier</li>
+            <li class="fragment">Reusable queries using LinqKit</li>
+          </ul>
         </section>
         <section>
           <h2>Summary</h2>
