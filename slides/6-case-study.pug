@@ -1,2 +1,78 @@
 section
-    h2 Case Study (TODO)
+    h2 Case Study
+
+section
+    h3 Apprentince Management System
+    ul
+        li Angular 5
+        li ASP.NET Core
+
+section
+    h3 Before
+    ul
+        li 394 .cs files
+        li 19 050 (C#) LOC
+
+section
+    h3 Refactoring
+    img.stretch(src='img/refactoring-commit.png')
+
+section
+    h3 After
+    ul
+        li 242 .cs files (-152)
+        li 13 892 (C#) LOC (-5158)
+
+section
+    h3 Solution structure
+    ul
+        li apps/
+            ul
+                li Host
+                li ...
+        li libs/
+            ul
+                li Core
+                li Data
+                li Features
+
+section
+    h3 Solution structure
+    ul
+        li Core
+            ul
+                li Authorization/
+                li Models/
+                li Repository/
+                li Services/
+                li Utils/
+
+section
+    h3 Solution structure
+    ul
+        li Data
+            ul
+                li Entity/
+                li EntityConfiguration/
+                li Migrations/
+                li DatabaseContext.cs
+
+
+section
+    h3 Solution structure
+    ul
+        li Feature 1
+            ul
+                li Controller.cs
+                li Command/
+                    ul
+                        li Update.cs
+                        li Delete.cs
+                li Query/
+                    ul: li GetAll.cs
+                    ul: li GetById.cs
+
+section
+    h3 Controller
+    pre: code(data-trim data-noescape)
+        | TODO

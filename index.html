@@ -353,7 +353,104 @@ namespace BasicArchitecture.Controllers
           <h3>5. Treat each request as a distinct use case</h3>
         </section>
         <section>
-          <h2>Case Study (TODO)</h2>
+          <h2>Case Study</h2>
+        </section>
+        <section>
+          <h3>Apprentince Management System</h3>
+          <ul>
+            <li>Angular 5</li>
+            <li>ASP.NET Core</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Before</h3>
+          <ul>
+            <li>394 .cs files</li>
+            <li>19 050 (C#) LOC</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Refactoring</h3><img class="stretch" src="img/refactoring-commit.png">
+        </section>
+        <section>
+          <h3>After</h3>
+          <ul>
+            <li>242 .cs files (-152)</li>
+            <li>13 892 (C#) LOC (-5158)</li>
+          </ul>
+        </section>
+        <section>
+          <h3>Solution structure</h3>
+          <ul>
+            <li>apps/
+              <ul>
+                <li>Host</li>
+                <li>...</li>
+              </ul>
+            </li>
+            <li>libs/
+              <ul>
+                <li>Core</li>
+                <li>Data</li>
+                <li>Features</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Solution structure</h3>
+          <ul>
+            <li>Core
+              <ul>
+                <li>Authorization/</li>
+                <li>Models/</li>
+                <li>Repository/</li>
+                <li>Services/</li>
+                <li>Utils/</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Solution structure</h3>
+          <ul>
+            <li>Data
+              <ul>
+                <li>Entity/</li>
+                <li>EntityConfiguration/</li>
+                <li>Migrations/</li>
+                <li>DatabaseContext.cs</li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Solution structure</h3>
+          <ul>
+            <li>Feature 1
+              <ul>
+                <li>Controller.cs</li>
+                <li>Command/
+                  <ul>
+                    <li>Update.cs</li>
+                    <li>Delete.cs</li>
+                  </ul>
+                </li>
+                <li>Query/
+                  <ul>
+                    <li>GetAll.cs</li>
+                  </ul>
+                  <ul>
+                    <li>GetById.cs</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </section>
+        <section>
+          <h3>Controller</h3>
+          <pre><code data-trim data-noescape>TODO</code></pre>
         </section>
         <section>
           <h2>Summary</h2>
